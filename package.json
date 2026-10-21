@@ -1,0 +1,30 @@
+{
+  "name": "desafio-accenture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "cy:api": "cypress run --spec \"cypress/e2e/api/**/*.feature\"",
+    "cy:frontend": "cypress run --spec \"cypress/e2e/frontend/**/*.feature\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matheusnogueiraQA/Desafio-Accenture.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/matheusnogueiraQA/Desafio-Accenture/issues"
+  },
+  "homepage": "https://github.com/matheusnogueiraQA/Desafio-Accenture#readme",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "@faker-js/faker": "^10.6.0",
+    "cypress": "^16.2.0"
+  }
+}
