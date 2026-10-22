@@ -1,7 +1,13 @@
 
 class PracticeFormPage {
     visit() {
-        cy.visit("/automation-practice-form");
+        cy.visit("/");
+        cy.contains(".card-body h5", "Forms").should("be.visible").click();
+        cy.url().should("include", "/forms");
+        cy.contains(".element-list .text", "Practice Form")
+            .should("be.visible")
+            .click();
+        cy.url().should("include", "/automation-practice-form");
     }
 
     fillFirstName(firstName) {
