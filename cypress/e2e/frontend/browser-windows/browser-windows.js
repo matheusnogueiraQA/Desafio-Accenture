@@ -2,10 +2,12 @@ import {
     When,
     Then,
 } from "@badeball/cypress-cucumber-preprocessor";
+import browserWindowsPage from "../../../pages/browserWindowsPage";
 
 When(
     "navego da página inicial até Browser Windows e solicito a abertura da nova janela com o texto {string}",
     (expectedText) => {
+        browserWindowsPage.visit();
         cy.task("browserWindows:verifyNewWindow", {
             expectedText,
         }).as("windowResult");
