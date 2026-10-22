@@ -14,6 +14,7 @@ module.exports = defineConfig({
         baseUrl: "https://demoqa.com",
         specPattern: "cypress/e2e/**/*.feature",
         supportFile: "cypress/support/e2e.js",
+        defaultBrowser: 'chrome',
 
         async setupNodeEvents(on, config) {
             await addCucumberPreprocessorPlugin(on, config);
