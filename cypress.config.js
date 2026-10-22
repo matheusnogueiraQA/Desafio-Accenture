@@ -10,14 +10,33 @@ const CHROME_PATH =
     "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
 module.exports = defineConfig({
+    reporter: "cypress-mochawesome-reporter",
+    reporterOptions: {
+        reportDir: "cypress/reports",
+        reportPageTitle: "Desafio Accenture - Relatório de Testes",
+        charts: true,
+        embeddedScreenshots: true,
+        inlineAssets: true,
+        saveJson: true,
+        overwrite: false,
+    },
+    video: true,
+    videoCompression: true,
+    // Preserva evidências manuais já guardadas em cypress/screenshots.
+    trashAssetsBeforeRuns: false,
+    taskTimeout: 180000,
     e2e: {
         baseUrl: "https://demoqa.com",
         specPattern: "cypress/e2e/**/*.feature",
         supportFile: "cypress/support/e2e.js",
         defaultBrowser: 'chrome',
 
-        async setupNodeEvents(on, config) {
+        async setupNodeEvents(cypressOn, config) {
+            const on = require("cypress-on-fix")(cypressOn);
+
             await addCucumberPreprocessorPlugin(on, config);
+
+            require("cypress-mochawesome-reporter/plugin")(on);
 
             on(
                 "file:preprocessor",
@@ -39,22 +58,25 @@ module.exports = defineConfig({
 
                     try {
                         page = await browser.newPage();
+                        page.setDefaultNavigationTimeout(90000);
+                        page.setDefaultTimeout(60000);
 
                         await page.goto(
                             `${config.baseUrl}/browser-windows`,
-                            { waitUntil: "domcontentloaded" }
+                            { waitUntil: "domcontentloaded", timeout: 90000 }
                         );
 
                         await page.waitForSelector("#windowButton", {
                             visible: true,
+                            timeout: 60000,
                         });
 
                         const popupPromise = new Promise((resolve, reject) => {
                             const timeout = setTimeout(() => {
                                 reject(
-                                    new Error("A nova janela não foi aberta em 10 segundos.")
+                                    new Error("A nova janela não foi aberta em 20 segundos.")
                                 );
-                            }, 10000);
+                            }, 20000);
 
                             page.once("popup", (newPage) => {
                                 clearTimeout(timeout);
