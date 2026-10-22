@@ -35,6 +35,7 @@ When("preencho todos os campos obrigatórios", () => {
     practiceFormPage.fillAddress(formData.address);
     practiceFormPage.selectState(formData.state);
     practiceFormPage.selectCity(formData.city);
+    practiceFormPage.uploadPicture("arquivo-desafio.txt");
 });
 
 When("envio o formulário", () => {
@@ -61,6 +62,10 @@ Then(
         practiceFormPage.validateField("Hobbies", formData.hobby);
         practiceFormPage.validateField("Address", formData.address);
         practiceFormPage.validateField("State and City", "NCR Delhi");
+<<<<<<< HEAD
+=======
+        practiceFormPage.validateField("Picture", "arquivo-desafio.txt");
+>>>>>>> origin/main
     }
 );
 
