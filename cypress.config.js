@@ -9,6 +9,25 @@ const puppeteer = require("puppeteer-core");
 const CHROME_PATH =
     "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
+async function clickElementWithText(page, selector, expectedText) {
+    await page.waitForSelector(selector, { visible: true, timeout: 60000 });
+    const elements = await page.$$(selector);
+
+    for (const element of elements) {
+        const text = await page.evaluate(
+            (node) => node.textContent.replace(/\s+/g, " ").trim(),
+            element
+        );
+
+        if (text === expectedText) {
+            await element.click();
+            return;
+        }
+    }
+
+    throw new Error(`Não encontrei o elemento "${expectedText}" em ${selector}.`);
+}
+
 module.exports = defineConfig({
     reporter: "cypress-mochawesome-reporter",
     reporterOptions: {
@@ -62,6 +81,19 @@ module.exports = defineConfig({
                         page.setDefaultTimeout(60000);
 
                         await page.goto(
+                            config.baseUrl,
+                            { waitUntil: "domcontentloaded", timeout: 90000 }
+                        );
+
+                        await clickElementWithText(
+                            page,
+                            ".card-body h5",
+                            "Alerts, Frame & Windows"
+                        );
+                        await clickElementWithText(
+                            page,
+                            ".element-list .text",
+                            "Browser Windows"
                             `${config.baseUrl}/browser-windows`,
                             { waitUntil: "domcontentloaded", timeout: 90000 }
                         );
@@ -90,6 +122,7 @@ module.exports = defineConfig({
 
                         await popup.waitForSelector("#sampleHeading", {
                             visible: true,
+                            timeout: 60000,
                         });
 
                         const text = await popup.$eval(

@@ -1,6 +1,13 @@
 class BrowserWindowsPage {
     visit() {
-        cy.visit("/browser-windows");
+        cy.visit("/");
+        cy.contains(".card-body h5", "Alerts, Frame & Windows")
+            .should("be.visible")
+            .click();
+        cy.contains(".element-list .text", "Browser Windows")
+            .should("be.visible")
+            .click();
+        cy.url().should("include", "/browser-windows");
     }
 
     openNewWindow() {
