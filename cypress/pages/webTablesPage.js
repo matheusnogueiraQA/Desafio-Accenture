@@ -1,7 +1,13 @@
 
 class WebTablesPage {
     visit() {
-        cy.visit("/webtables");
+        cy.visit("/");
+        cy.contains(".card-body h5", "Elements").should("be.visible").click();
+        cy.url().should("include", "/elements");
+        cy.contains(".element-list .text", "Web Tables")
+            .should("be.visible")
+            .click();
+        cy.url().should("include", "/webtables");
         cy.get("#addNewRecordButton").should("be.visible");
     }
 
