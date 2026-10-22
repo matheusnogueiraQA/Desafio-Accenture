@@ -6,8 +6,6 @@ Ao excluir um registro recém-cadastrado na página Web Tables, todos os registr
 ## Ambiente:
 - DemoQA — Web Tables
 - URL: https://demoqa.com/webtables
-- Navegador: Google Chrome
-- Data da ocorrência: 22/10/2026
 
 ## Pré-condições
 - Acessar a página Web Tables.
@@ -15,13 +13,11 @@ Ao excluir um registro recém-cadastrado na página Web Tables, todos os registr
 - Confirmar que os 12 registros aparecem na tabela.
 
 ## Passos para reproduzir
-
 1. Acessar a página Web Tables.
 2. Cadastrar 12 registros dinamicamente.
-3. Pesquisar e confirmar a presença de cada registro.
-4. Pesquisar um dos registros criados.
-5. Clicar no ícone de exclusão desse registro.
-6. Pesquisar os outros registros criados.
+3. Pesquisar um dos registros criados.
+4. Clicar no ícone de exclusão desse registro.
+5. Pesquisar os outros registros criados.
 
 ## Resultado esperado:
 Somente o registro selecionado deve ser excluído. Os outros 11 registros criados devem continuar disponíveis na tabela.
