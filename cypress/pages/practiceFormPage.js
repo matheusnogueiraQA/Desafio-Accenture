@@ -5,15 +5,18 @@ class PracticeFormPage {
     }
 
     fillFirstName(firstName) {
-        cy.get("#firstName").should("be.visible").clear().type(firstName);
+        cy.get("#firstName").should("be.visible").clear();
+        cy.get("#firstName").should("be.visible").and("be.enabled").type(firstName);
     }
 
     fillLastName(lastName) {
-        cy.get("#lastName").should("be.visible").clear().type(lastName);
+        cy.get("#lastName").should("be.visible").clear();
+        cy.get("#lastName").should("be.visible").and("be.enabled").type(lastName);
     }
 
     fillEmail(email) {
-        cy.get("#userEmail").should("be.visible").clear().type(email);
+        cy.get("#userEmail").should("be.visible").clear();
+        cy.get("#userEmail").should("be.visible").and("be.enabled").type(email);
     }
 
     selectGender(gender) {
@@ -29,7 +32,8 @@ class PracticeFormPage {
     }
 
     fillMobile(mobile) {
-        cy.get("#userNumber").should("be.visible").clear().type(mobile);
+        cy.get("#userNumber").should("be.visible").clear();
+        cy.get("#userNumber").should("be.visible").and("be.enabled").type(mobile);
     }
 
     fillDateOfBirth() {
@@ -68,7 +72,10 @@ class PracticeFormPage {
     fillAddress(address) {
         cy.get("#currentAddress")
             .should("be.visible")
-            .clear()
+            .clear();
+        cy.get("#currentAddress")
+            .should("be.visible")
+            .and("be.enabled")
             .type(address);
     }
 
