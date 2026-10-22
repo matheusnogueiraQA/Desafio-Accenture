@@ -24,7 +24,23 @@ class WebTablesPage {
         cy.get(".modal-content").should("not.exist");
     }
 
+    createRecord(user) {
+        this.openRegistrationForm();
+        this.fillRegistrationForm(user);
+        this.submitRegistration();
+    }
+
+    searchByEmail(email) {
+        cy.get("#searchBox").should("be.visible").clear();
+        cy.get("#searchBox").type(email);
+    }
+
+    clearSearch() {
+        cy.get("#searchBox").clear();
+    }
+
     validateRecord(user) {
+        this.searchByEmail(user.email);
         cy.get("table").should("be.visible");
 
         cy.get("table tbody tr")
@@ -39,6 +55,8 @@ class WebTablesPage {
                 cy.get("td").eq(4).should("have.text", String(user.salary));
                 cy.get("td").eq(5).should("have.text", user.department);
             });
+
+        this.clearSearch();
     }
 
     editRecord(user, newDepartment) {
@@ -57,6 +75,21 @@ class WebTablesPage {
 
         cy.contains("table tbody tr", user.email)
             .should("contain.text", newDepartment);
+    }
+
+    deleteRecord(user) {
+        this.searchByEmail(user.email);
+        cy.contains("table tbody tr", user.email)
+            .should("be.visible")
+            .within(() => {
+                cy.get("span[title='Delete']").click();
+            });
+    }
+
+    validateRecordDoesNotExist(user) {
+        this.searchByEmail(user.email);
+        cy.contains("table tbody tr", user.email).should("not.exist");
+        this.clearSearch();
     }
 }
 
