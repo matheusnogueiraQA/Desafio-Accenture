@@ -29,6 +29,20 @@ async function clickElementWithText(page, selector, expectedText) {
 }
 
 module.exports = defineConfig({
+    reporter: "cypress-mochawesome-reporter",
+    reporterOptions: {
+        reportDir: "cypress/reports",
+        reportPageTitle: "Desafio Accenture - Relatório de Testes",
+        charts: true,
+        embeddedScreenshots: true,
+        inlineAssets: true,
+        saveJson: true,
+        overwrite: false,
+    },
+    video: true,
+    videoCompression: true,
+    // Preserva evidências manuais já guardadas em cypress/screenshots.
+    trashAssetsBeforeRuns: false,
     taskTimeout: 180000,
     e2e: {
         baseUrl: "https://demoqa.com",
@@ -36,8 +50,12 @@ module.exports = defineConfig({
         supportFile: "cypress/support/e2e.js",
         defaultBrowser: 'chrome',
 
-        async setupNodeEvents(on, config) {
+        async setupNodeEvents(cypressOn, config) {
+            const on = require("cypress-on-fix")(cypressOn);
+
             await addCucumberPreprocessorPlugin(on, config);
+
+            require("cypress-mochawesome-reporter/plugin")(on);
 
             on(
                 "file:preprocessor",
@@ -76,6 +94,8 @@ module.exports = defineConfig({
                             page,
                             ".element-list .text",
                             "Browser Windows"
+                            `${config.baseUrl}/browser-windows`,
+                            { waitUntil: "domcontentloaded", timeout: 90000 }
                         );
 
                         await page.waitForSelector("#windowButton", {
