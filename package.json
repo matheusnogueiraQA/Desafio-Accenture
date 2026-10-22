@@ -7,7 +7,8 @@
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "cy:api": "cypress run --spec \"cypress/e2e/api/**/*.feature\"",
-    "cy:frontend": "cypress run --spec \"cypress/e2e/frontend/**/*.feature\""
+    "cy:frontend": "cypress run --spec \"cypress/e2e/frontend/**/*.feature\"",
+    "cy:browser-windows": "cypress run --browser chrome --headed --spec \"cypress/e2e/frontend/browser-windows/browser-windows.feature\""
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,14 @@
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "@faker-js/faker": "^10.6.0",
-    "cypress": "^16.2.0"
+    "cypress": "^16.2.0",
+    "puppeteer-core": "^25.15.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/e2e/[filepath].js",
+      "cypress/e2e/[filepart].js",
+      "cypress/support/step_definitions/**/*.js"
+    ]
   }
 }
