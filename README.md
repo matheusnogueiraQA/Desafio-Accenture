@@ -76,7 +76,8 @@ Os arquivos `.feature` e suas implementações estão organizados em `cypress/e2
 
 ## Relatórios e evidências
 
-- Relatórios HTML e JSON: `cypress/reports`
+- Relatório HTML: `cypress/reports/index.html` (gerado com `npm run cy:report`)
+- Relatório JSON: `cypress/reports/index.json`
 - Vídeos das execuções: `cypress/videos`
 - Screenshots de falhas e evidências: `cypress/screenshots`
 
