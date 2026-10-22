@@ -25,5 +25,5 @@ O modal de confirmação deve fechar após clicar no botão Close.
 O modal de confirmação continua aberto após o clique. O console do navegador exibe o erro: Lr.findDOMNode is not a function
 
 ## Evidências
-
+![Falha ao fechar o modal](../../cypress/screenshots/practice-form.feature/fechar%20modal.png)
   
