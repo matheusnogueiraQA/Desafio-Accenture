@@ -62,10 +62,7 @@ Then(
         practiceFormPage.validateField("Hobbies", formData.hobby);
         practiceFormPage.validateField("Address", formData.address);
         practiceFormPage.validateField("State and City", "NCR Delhi");
-<<<<<<< HEAD
-=======
         practiceFormPage.validateField("Picture", "arquivo-desafio.txt");
->>>>>>> origin/main
     }
 );
 
