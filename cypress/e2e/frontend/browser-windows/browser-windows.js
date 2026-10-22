@@ -4,7 +4,7 @@ import {
 } from "@badeball/cypress-cucumber-preprocessor";
 
 When(
-    "solicito a abertura de uma nova janela com o texto {string}",
+    "navego da página inicial até Browser Windows e solicito a abertura da nova janela com o texto {string}",
     (expectedText) => {
         cy.task("browserWindows:verifyNewWindow", {
             expectedText,

@@ -9,7 +9,27 @@ const puppeteer = require("puppeteer-core");
 const CHROME_PATH =
     "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
+async function clickElementWithText(page, selector, expectedText) {
+    await page.waitForSelector(selector, { visible: true, timeout: 60000 });
+    const elements = await page.$$(selector);
+
+    for (const element of elements) {
+        const text = await page.evaluate(
+            (node) => node.textContent.replace(/\s+/g, " ").trim(),
+            element
+        );
+
+        if (text === expectedText) {
+            await element.click();
+            return;
+        }
+    }
+
+    throw new Error(`Não encontrei o elemento "${expectedText}" em ${selector}.`);
+}
+
 module.exports = defineConfig({
+    taskTimeout: 180000,
     e2e: {
         baseUrl: "https://demoqa.com",
         specPattern: "cypress/e2e/**/*.feature",
@@ -39,22 +59,36 @@ module.exports = defineConfig({
 
                     try {
                         page = await browser.newPage();
+                        page.setDefaultNavigationTimeout(90000);
+                        page.setDefaultTimeout(60000);
 
                         await page.goto(
-                            `${config.baseUrl}/browser-windows`,
-                            { waitUntil: "domcontentloaded" }
+                            config.baseUrl,
+                            { waitUntil: "domcontentloaded", timeout: 90000 }
+                        );
+
+                        await clickElementWithText(
+                            page,
+                            ".card-body h5",
+                            "Alerts, Frame & Windows"
+                        );
+                        await clickElementWithText(
+                            page,
+                            ".element-list .text",
+                            "Browser Windows"
                         );
 
                         await page.waitForSelector("#windowButton", {
                             visible: true,
+                            timeout: 60000,
                         });
 
                         const popupPromise = new Promise((resolve, reject) => {
                             const timeout = setTimeout(() => {
                                 reject(
-                                    new Error("A nova janela não foi aberta em 10 segundos.")
+                                    new Error("A nova janela não foi aberta em 20 segundos.")
                                 );
-                            }, 10000);
+                            }, 20000);
 
                             page.once("popup", (newPage) => {
                                 clearTimeout(timeout);
@@ -68,6 +102,7 @@ module.exports = defineConfig({
 
                         await popup.waitForSelector("#sampleHeading", {
                             visible: true,
+                            timeout: 60000,
                         });
 
                         const text = await popup.$eval(
